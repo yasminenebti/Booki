@@ -1,16 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Header from "./Header";
-import { GlobalState } from "../GlobalState";
+
 import Navbar from "../components/Navbar";
 import logo from "../images/shelf.png";
 import { Link } from "react-router-dom";
 
 function BookDetails() {
-  const state = useContext(GlobalState);
-  const addWishList = state.userAPI.addWishList;
-  console.log(state.userAPI.addWishList);
+
   console.log("hello");
 
   const params = useParams();
@@ -63,7 +61,7 @@ function BookDetails() {
                     <div className="text-white">hello</div>
                     <Link to="/notfound">
                       <button
-                        onClick={() => addWishList(book)}
+                        
                         className=" text-white bg-green px-5 py-2 shadow-md w-full rounded-md font-bold  hover:shadow-xl active:scale-90 transition duration-150"
                       >
                         Add to wishList

@@ -1,20 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../images/logo.svg";
-import {
-  ArrowRightOnRectangleIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/24/solid";
-import { GlobalState } from "../GlobalState";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
 function Header() {
   let navigate = useNavigate();
-  const state = useContext(GlobalState);
-  const loggedUser = state.userAPI.isLogged[0];
+
   const [searchQuery, setSearchQuery] = useState("");
 
-  const user = state.token[0];
-  console.log(user);
   function searchClick() {
     navigate(`/search?q=${searchQuery}`);
   }
@@ -44,32 +37,29 @@ function Header() {
       </div>
 
       <div className="flex items-center justify-end">
-        {loggedUser ? (
-          <div className="flex items-center">
-            <div className="cursor-pointer hover:underline hidden sm:inline-flex sm:mx-4 md:px-7 text-secondary sm:text-sm md:text-md">
-              Welcome {user.name} !
-            </div>
+        {/* // <div className="flex items-center">
+          //   <div className="cursor-pointer hover:underline hidden sm:inline-flex sm:mx-4 md:px-7 text-secondary sm:text-sm md:text-md">
+          //     Welcome {user.name} !
+          //   </div>
 
-            <ArrowRightOnRectangleIcon className="cursor-pointer h-7 hover:text-red" />
+          //   <ArrowRightOnRectangleIcon className="cursor-pointer h-7 hover:text-red" />
+           
+          // </div> */}
 
-            {/* <Link to="/wishList">WishList </Link> */}
-          </div>
-        ) : (
-          <div className="flex items-center space-x-3">
-            <Link
-              to="/login"
-              className="cursor-pointer hover:underline text-sm sm:text-md"
-            >
-              Log In
-            </Link>
-            <Link
-              to="/register"
-              className="cursor-pointer hover:underline text-sm sm:text-md"
-            >
-              Register
-            </Link>
-          </div>
-        )}
+        <div className="flex items-center space-x-3">
+          <Link
+            to="/login"
+            className="cursor-pointer hover:underline text-sm sm:text-md"
+          >
+            Log In
+          </Link>
+          <Link
+            to="/register"
+            className="cursor-pointer hover:underline text-sm sm:text-md"
+          >
+            Register
+          </Link>
+        </div>
       </div>
     </header>
   );
