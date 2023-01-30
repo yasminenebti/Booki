@@ -8,6 +8,7 @@ import Category from "./pages/Category";
 import Search from "./pages/Search";
 import BessSeller from "./pages/BessSeller";
 import Notfound from "./pages/counter/Notfound";
+import Test from "./components/Test";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/bestseller" element={<BessSeller />} />
         <Route path="/notfound" element={<Notfound />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
     </Router>
   );
