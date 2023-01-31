@@ -19,11 +19,11 @@ function BookList() {
   return (
     <div className="max-w-7xl mx-auto px-8 sm:px-16 mt-20 ">
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-        {books?.slice(0, 4).map((book) => {
+        {books?.slice(0, 4).map((book,index) => {
           return (
             <>
               <BookCard
-                key={book._id}
+                key={index}
                 image={book.image}
                 id={book._id}
                 name={book.name}

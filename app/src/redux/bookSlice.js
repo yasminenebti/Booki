@@ -14,7 +14,7 @@ export const booksFetch = createAsyncThunk(
       const res = await axios.get("http://localhost:7000/api/book");
       return res?.data.books;
     } catch (error) {
-      return rejectWithValue("Oops, something went wrong");
+      return rejectWithValue("Oops, something went wrong"); 
     }
   }
 );
@@ -22,7 +22,17 @@ export const booksFetch = createAsyncThunk(
 export const bookSlice = createSlice({
   name: "books",
   initialState,
-  reducers: {}, //handle action create
+  reducers: {
+    addBook: (state, action) => {
+        const product = state.products.find((product) => product.id === action.payload.id);
+        if (product) {
+          product.quantity += action.payload.quantity;
+        } else {
+          state.products.push(action.payload);
+        }
+    },
+  
+  }, //handle action create
   extraReducers: {
     //handle action type
     [booksFetch.pending]: (state, action) => {
