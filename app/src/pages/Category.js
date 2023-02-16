@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, {  useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Header from "./Header";
 import { useSelector, useDispatch } from "react-redux";
 import { booksFetch } from "../redux/bookSlice";
-import axios from "axios";
+
 import BookCard from "../components/BookCard";
 import Loading from "../utils/Loading";
 
@@ -16,17 +16,8 @@ function Category() {
   useEffect(() => {
     dispatch(booksFetch());
   }, [dispatch]);
-  const [books, setBooks] = useState([]);
-  useEffect(() => {
-    axios
-      .get("http://localhost:7000/api/book")
-      .then((res) => {
-        setBooks(res.data.books);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  
+ 
   return (
     <>
       <Header />

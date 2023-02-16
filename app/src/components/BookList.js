@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+
+import React, {  useEffect } from "react";
 import BookCard from "./BookCard";
 import Loading from "../utils/Loading";
 import { useSelector, useDispatch } from 'react-redux';
