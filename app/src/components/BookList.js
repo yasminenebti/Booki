@@ -2,26 +2,27 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import BookCard from "./BookCard";
 import Loading from "../utils/Loading";
+import { useSelector, useDispatch } from 'react-redux';
+import { booksFetch } from "../redux/bookSlice";
 
 function BookList() {
-  const [books, setBooks] = useState([]);
+  const dispatch = useDispatch();
+  const bookList = useSelector(state => state.books.books);
+  const isLoading = useSelector(state => state.books.loading);
+  const error = useSelector(state => state.books.error);
+
   useEffect(() => {
-    axios
-      .get("http://localhost:7000/api/book")
-      .then((res) => {
-        setBooks(res.data.books);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  dispatch(booksFetch())
+  }, [dispatch])
+  
 
   return (
     <div className="max-w-7xl mx-auto px-8 sm:px-16 mt-20 ">
+
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-        {books?.slice(0, 4).map((book,index) => {
+        {bookList?.slice(0, 4).map((book,index) => {
           return (
-            <>
+            
               <BookCard
                 key={index}
                 image={book.image}
@@ -29,11 +30,12 @@ function BookList() {
                 name={book.name}
                 author={book.author}
               />
-            </>
+          
           );
         })}
       </div>
-      {books.length === 0 && <Loading />}
+      {isLoading && <Loading/>}
+      {error && <div>Error</div>}
     </div>
   );
 }

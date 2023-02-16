@@ -3,49 +3,36 @@ import axios from "axios";
 
 const initialState = {
   books: [],
-  status: null,
-  error: false,
+  loading: false,
+  error: null,
 };
 
-export const booksFetch = createAsyncThunk(
-  "books/booksFetch",
-  async (id = null, { rejectWithValue }) => {
-    try {
-      const res = await axios.get("http://localhost:7000/api/book");
-      return res?.data.books;
-    } catch (error) {
-      return rejectWithValue("Oops, something went wrong"); 
-    }
-  }
-);
+
+
+export const booksFetch = createAsyncThunk('books/booksFetch', async () => {
+  const response = await axios.get('http://localhost:7000/api/book');
+  return response.data;
+});
+
 
 export const bookSlice = createSlice({
   name: "books",
   initialState,
-  reducers: {
-    addBook: (state, action) => {
-        const product = state.products.find((product) => product.id === action.payload.id);
-        if (product) {
-          product.quantity += action.payload.quantity;
-        } else {
-          state.products.push(action.payload);
-        }
-    },
-  
-  }, //handle action create
+  reducers: {},
   extraReducers: {
-    //handle action type
-    [booksFetch.pending]: (state, action) => {
-      state.status = "pending";
+    [booksFetch.pending]: (state) => {
+      state.loading = true;
     },
     [booksFetch.fulfilled]: (state, action) => {
-      state.status = "success";
-      state.books = action.payload;
+      state.loading = false;
+      state.books =action.payload.books;
+      state.error = null;
     },
     [booksFetch.rejected]: (state, action) => {
-      state.status = "rejected";
-      state.error = action.payload;
+      state.loading = false;
+      state.error = action.error.message;
     },
-  },
+  }
 });
+
 export default bookSlice.reducer;

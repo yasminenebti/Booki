@@ -5,12 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "server": "nodemon index.js",
+    "app":"cd .. && cd app && npm start",
+    "dev": "concurrently -n 'server,app'-c 'red,green' \"npm run server\" \"npm run app\""
+    
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "concurrently": "^7.6.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",

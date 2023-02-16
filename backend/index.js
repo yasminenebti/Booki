@@ -19,9 +19,13 @@ app.use(express.urlencoded({ extended: true }));
 
 const bookRoute = require("./Routes/BookRoute");
 const userRoute = require("./Routes/userRoute");
+const cartRoute = require("./Routes/CartRoute");
+
 
 app.use("/api/book", bookRoute);
 app.use("/api/user", userRoute);
+app.use("/api/cart", cartRoute);
+
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {

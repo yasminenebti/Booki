@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Header from "./Header";
-
+import { useSelector, useDispatch } from "react-redux";
+import { booksFetch } from "../redux/bookSlice";
 import axios from "axios";
 import BookCard from "../components/BookCard";
 import Loading from "../utils/Loading";
 
 function Category() {
+  const dispatch = useDispatch();
+  const bookList = useSelector((state) => state.books.books);
+  const isLoading = useSelector((state) => state.books.loading);
+  const error = useSelector((state) => state.books.error);
+
+  useEffect(() => {
+    dispatch(booksFetch());
+  }, [dispatch]);
   const [books, setBooks] = useState([]);
   useEffect(() => {
     axios
@@ -28,18 +37,16 @@ function Category() {
         </h2>
         <hr className="mx-auto w-full h-0.5 rounded border-0 mt-2 mb-4 bg-grey"></hr>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-          {books.map((book) => {
+          {bookList?.map((book) => {
             return (
               book.genre === "Biography" && (
-                <>
-                  <BookCard
-                    key={book._id}
-                    image={book.image}
-                    id={book._id}
-                    name={book.name}
-                    author={book.author}
-                  />
-                </>
+                <BookCard
+                  key={book._id}
+                  image={book.image}
+                  id={book._id}
+                  name={book.name}
+                  author={book.author}
+                />
               )
             );
           })}
@@ -49,18 +56,16 @@ function Category() {
         </h2>
         <hr className="mx-auto w-full h-0.5 rounded border-0 mt-2 mb-4 bg-grey"></hr>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-          {books.map((book) => {
+          {bookList?.map((book) => {
             return (
               book.genre === "Fiction" && (
-                <>
-                  <BookCard
-                    key={book._id}
-                    image={book.image}
-                    id={book._id}
-                    name={book.name}
-                    author={book.author}
-                  />
-                </>
+                <BookCard
+                  key={book._id}
+                  image={book.image}
+                  id={book._id}
+                  name={book.name}
+                  author={book.author}
+                />
               )
             );
           })}
@@ -70,18 +75,16 @@ function Category() {
         </h2>
         <hr className="mx-auto w-full h-0.5 rounded border-0 mt-2 mb-4 bg-grey"></hr>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-          {books.map((book) => {
+          {bookList?.map((book) => {
             return (
               book.genre === "Business" && (
-                <>
-                  <BookCard
-                    key={book._id}
-                    image={book.image}
-                    id={book._id}
-                    name={book.name}
-                    author={book.author}
-                  />
-                </>
+                <BookCard
+                  key={book._id}
+                  image={book.image}
+                  id={book._id}
+                  name={book.name}
+                  author={book.author}
+                />
               )
             );
           })}
@@ -91,18 +94,16 @@ function Category() {
         </h2>
         <hr className="mx-auto w-full h-0.5 rounded border-0 mt-2 mb-4 bg-grey"></hr>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-          {books.map((book) => {
+          {bookList?.map((book) => {
             return (
               book.genre === "Romance" && (
-                <>
-                  <BookCard
-                    key={book._id}
-                    image={book.image}
-                    id={book._id}
-                    name={book.name}
-                    author={book.author}
-                  />
-                </>
+                <BookCard
+                  key={book._id}
+                  image={book.image}
+                  id={book._id}
+                  name={book.name}
+                  author={book.author}
+                />
               )
             );
           })}
@@ -112,24 +113,23 @@ function Category() {
         </h2>
         <hr className="mx-auto w-full h-0.5 rounded border-0 mt-2 mb-4 bg-grey"></hr>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-          {books.map((book) => {
+          {bookList.map((book) => {
             return (
               book.genre === "Self-help book" && (
-                <>
-                  <BookCard
-                    key={book._id}
-                    image={book.image}
-                    id={book._id}
-                    name={book.name}
-                    author={book.author}
-                  />
-                </>
+                <BookCard
+                  key={book._id}
+                  image={book.image}
+                  id={book._id}
+                  name={book.name}
+                  author={book.author}
+                />
               )
             );
           })}
         </div>
 
-        {books.length === 0 && <Loading />}
+        {isLoading && <Loading />}
+        {error && <div>Error</div>}
       </div>
     </>
   );

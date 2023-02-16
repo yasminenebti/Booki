@@ -1,17 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
-import bookSlice, { booksFetch } from "./redux/bookSlice";
-import slideReducer from "./redux/slideSlicer";
 
-import { booksApi } from "./redux/booksApi";
+import booksReducer from "./redux/bookSlice";
+import cartReducer from "./redux/cartSlice";
+
+import authReducer, { authSet } from "./redux/authSlice";
+import setAuthToken from "./utils/setAuthToken";
 
 export const store = configureStore({
   reducer: {
-    slider : slideReducer,
-    books: bookSlice,
-    [booksApi.reducerPath]: booksApi.reducer,
+    cart: cartReducer,
+    books: booksReducer,
+
+    auth: authReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(booksApi.middleware),
 });
 
-store.dispatch(booksFetch());
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+store.dispatch(authSet());

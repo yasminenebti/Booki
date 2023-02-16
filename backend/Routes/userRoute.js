@@ -6,7 +6,7 @@ const userRoute = require("../controller/userController");
 
 router.get("/authcheck", auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.verifiedUser.id);
     return res.status(200).json({ user: user });
   } catch (error) {
     return res.status(500).json({ message: message.error });
